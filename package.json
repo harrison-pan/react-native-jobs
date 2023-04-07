@@ -3,7 +3,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "eslint src/**/*.tsx src/**/*.ts",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "expo": "^48.0.7",
@@ -31,6 +33,11 @@
     "@types/react-test-renderer": "^18.0.0",
     "@types/styled-components": "^5.1.26",
     "@types/styled-components-react-native": "^5.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-native": "^4.0.0",
     "typescript": "^5.0.3"
   },
   "resolutions": {

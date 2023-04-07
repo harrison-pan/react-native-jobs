@@ -1,0 +1,18 @@
+# exclude node_modules directory
+node_modules/
+
+# exclude build and dist directories
+build/
+dist/
+coverage/
+fixtures/
+
+# exclude generated files
+*.generated.js
+*.generated.ts
+*.generated.jsx
+*.generated.tsx
+
+# misc
+.expo
+public/
