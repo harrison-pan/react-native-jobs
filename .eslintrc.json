@@ -9,7 +9,6 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:import/recommended",
     "prettier"
   ],
   "overrides": [],
@@ -26,20 +25,8 @@
     "no-use-before-define": ["error", { "variables": false }],
     // ignore errors for the react-navigation package
     "react/prop-types": ["error", { "ignore": ["navigation", "navigation.navigate"] }],
-    // ignore errors for import directives
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react-hooks/use-state-naming": "warn",
     "react-native/no-unused-styles": "error",
     "react-native/split-platform-components": "error",
     "react-native/no-inline-styles": "error",
