@@ -8,7 +8,9 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb/hooks"
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "prettier"
   ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -19,17 +21,11 @@
   "plugins": ["react", "react-native", "@typescript-eslint"],
   "rules": {
     // allow .js files to contain JSX code
-    "react/jsx-filename-extension": [
-      1,
-      { "extensions": [".ts", ".tsx", ".js", ".jsx"] }
-    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
     // prevent eslint to complain about the "styles" variable being used before it was defined
     "no-use-before-define": ["error", { "variables": false }],
     // ignore errors for the react-navigation package
-    "react/prop-types": [
-      "error",
-      { "ignore": ["navigation", "navigation.navigate"] }
-    ],
+    "react/prop-types": ["error", { "ignore": ["navigation", "navigation.navigate"] }],
     // ignore errors for import directives
     "import/extensions": [
       "error",
@@ -41,5 +37,10 @@
         "tsx": "never"
       }
     ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

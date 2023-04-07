@@ -14,5 +14,5 @@ fixtures/
 *.generated.tsx
 
 # misc
-.expo
+.expo/
 public/
