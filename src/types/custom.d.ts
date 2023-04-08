@@ -30,7 +30,9 @@ declare module 'custom' {
     tertiary: string;
     gray: string;
     gray2: string;
+    gray3: string;
     white: string;
+    white2: string;
     lightWhite: string;
   }
 

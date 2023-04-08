@@ -6,7 +6,9 @@ const COLORS: Colors = {
   tertiary: '#FF7754',
   gray: '#83829A',
   gray2: '#C1C0C8',
+  gray3: '#B3AEC6',
   white: '#F3F4F8',
+  white2: '#FFF',
   lightWhite: '#FAFAFC',
 };
 
