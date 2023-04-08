@@ -1,9 +1,55 @@
-declare module '*.png' {
-  const value: HTMLImageElement;
-  export default value;
-}
+declare module 'custom' {
+  export interface Sizes {
+    xSmall: number;
+    small: number;
+    medium: number;
+    large: number;
+    xLarge: number;
+    xxLarge: number;
+  }
 
-declare module '*.jpg' {
-  const value: HTMLImageElement;
-  export default value;
+  export interface Shadow {
+    shadowColor: string;
+    shadowOffset: {
+      width: number;
+      height: number;
+    };
+    shadowOpacity: number;
+    shadowRadius: number;
+    elevation: number;
+  }
+
+  export interface Shadows {
+    small: Shadow;
+    medium: Shadow;
+  }
+
+  export interface Colors {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    gray: string;
+    gray2: string;
+    white: string;
+    lightWhite: string;
+  }
+
+  export interface Font {
+    regular: string;
+    medium: string;
+    bold: string;
+  }
+
+  export interface IconObject {
+    heart: string;
+    menu: string;
+    search: string;
+    filter: string;
+    left: string;
+    heartOutline: string;
+    share: string;
+    location: string;
+    chevronLeft: string;
+    chevronRight: string;
+  }
 }

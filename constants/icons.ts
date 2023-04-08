@@ -8,8 +8,9 @@ import share from '../assets/icons/share.png';
 import location from '../assets/icons/location.png';
 import chevronLeft from '../assets/icons/chevron-left.png';
 import chevronRight from '../assets/icons/chevron-right.png';
+import { IconObject } from 'custom';
 
-export default {
+const icons: IconObject = {
   heart,
   menu,
   search,
@@ -21,3 +22,5 @@ export default {
   chevronLeft,
   chevronRight,
 };
+
+export default icons;
