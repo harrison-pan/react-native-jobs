@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from 'react-native';
+
 declare module 'custom' {
   export interface Sizes {
     xSmall: number;
@@ -44,7 +46,7 @@ declare module 'custom' {
 
   export interface IconObject {
     heart: string;
-    menu: string;
+    menu: ImageSourcePropType;
     search: string;
     filter: string;
     left: string;

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { COLORS, icons, images, SIZES } from '../constants';
@@ -16,8 +15,24 @@ const Home: React.FC = (): JSX.Element => {
         options={{
           headerStyle: { backgroundColor: COLORS.lightWhite },
           headerShadowVisible: false,
-          headerLeft: () => <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />,
-          headerRight: () => <ScreenHeaderBtn iconUrl={icons.menu} dimension="100%" />,
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.menu}
+              dimension="60%"
+              handlePress={() => {
+                throw new Error('Function not implemented.');
+              }}
+            />
+          ),
+          headerRight: () => (
+            <ScreenHeaderBtn
+              iconUrl={images.profile}
+              dimension="100%"
+              handlePress={() => {
+                throw new Error('Function not implemented.');
+              }}
+            />
+          ),
           headerTitle: '',
         }}
       />
