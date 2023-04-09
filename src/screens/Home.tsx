@@ -26,7 +26,7 @@ const Home: React.FC = (): JSX.Element => {
           ),
           headerRight: () => (
             <ScreenHeaderBtn
-              iconUrl={images.profile}
+              iconUrl={images.profileImage}
               dimension="100%"
               handlePress={() => {
                 throw new Error('Function not implemented.');
