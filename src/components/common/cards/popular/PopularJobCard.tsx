@@ -3,19 +3,15 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 import styles from './popularjobcard.style';
 import { checkImageURL } from '../../../../utils/utils';
-import { Job } from 'custom';
+import { Job } from '../../../../types/custom';
 
-interface Props<T extends Job> {
-  item: T;
+interface Props {
+  item: Job;
   selectedJob: string;
-  handleCardPress: (item: T) => void;
+  handleCardPress: (item: Job) => void;
 }
 
-function PopularJobCard<T extends Job>({
-  item,
-  selectedJob,
-  handleCardPress,
-}: Props<T>): JSX.Element {
+function PopularJobCard({ item, selectedJob, handleCardPress }: Props): JSX.Element {
   return (
     <TouchableOpacity
       style={styles.container(selectedJob, item)}

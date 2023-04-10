@@ -8,6 +8,7 @@ import { useSWRDataFetch } from '../../../hooks/useSWRDataFetch';
 import { showErrorToast } from '../../../modals/toast';
 import PopularJobCard from '../../common/cards/popular/PopularJobCard';
 import styles from './popularjobs.style';
+import { Job } from '../../../types/custom';
 
 const PopularJobs: React.FC = (): JSX.Element => {
   const router = useRouter();
@@ -49,7 +50,7 @@ const PopularJobs: React.FC = (): JSX.Element => {
                 // handleCardPress={handleCardPress}
               />
             )}
-            keyExtractor={(item) => item?.job_id}
+            keyExtractor={(item: Job) => item?.job_id}
             contentContainerStyle={{ columnGap: SIZES.medium }}
             horizontal
           />
