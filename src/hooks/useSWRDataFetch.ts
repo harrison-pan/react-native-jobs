@@ -1,12 +1,6 @@
 import useSWRImmutable from 'swr/immutable';
 import axios, { AxiosRequestConfig } from 'axios';
-
-interface SWRDataFetchResult<T> {
-  data: ArrayLike<T> | undefined;
-  isLoading: boolean;
-  isValidating: boolean;
-  error: Error | undefined;
-}
+import { SWRDataFetchResult } from '../types/custom';
 
 type QueryType = { [key: string]: string | number };
 

@@ -7,7 +7,7 @@ import { Job } from '../../../../types/custom';
 
 interface Props {
   item: Job;
-  selectedJob: string;
+  selectedJob: string | undefined;
   handleCardPress: (item: Job) => void;
 }
 
@@ -28,6 +28,7 @@ function PopularJobCard({ item, selectedJob, handleCardPress }: Props): JSX.Elem
           style={styles.logoImage}
         />
       </TouchableOpacity>
+
       <Text style={styles.companyName} numberOfLines={1}>
         {item.employer_name}
       </Text>

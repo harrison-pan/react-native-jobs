@@ -26,6 +26,15 @@ const PopularJobs: React.FC = (): JSX.Element => {
     }
   );
 
+  const [selectedJob, setSelectedJob] = useState<string | undefined>();
+
+  const handleCardPress = (item: Job) => {
+    router.push(`/job-details/${item.job_id}`);
+    setSelectedJob(item?.job_id);
+  };
+
+  const jobs = data as Job[];
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -42,15 +51,15 @@ const PopularJobs: React.FC = (): JSX.Element => {
           <>{showErrorToast(error.message)}</>
         ) : (
           <FlatList
-            data={data}
+            data={jobs}
             renderItem={({ item }) => (
               <PopularJobCard
                 item={item}
-                // selectedJob={selectedJob}
-                // handleCardPress={handleCardPress}
+                selectedJob={selectedJob}
+                handleCardPress={handleCardPress}
               />
             )}
-            keyExtractor={(item: Job) => item?.job_id}
+            keyExtractor={(item: Job) => (item?.job_id ? item.job_id.toString() : '')}
             contentContainerStyle={{ columnGap: SIZES.medium }}
             horizontal
           />
