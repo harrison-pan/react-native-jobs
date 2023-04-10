@@ -1,4 +1,4 @@
-import { Colors, Font, Sizes, Shadows } from 'custom';
+import { Colors, Font, Sizes, Shadows } from '../types/custom';
 
 const COLORS: Colors = {
   primary: '#312651',

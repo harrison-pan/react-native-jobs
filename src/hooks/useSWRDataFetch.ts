@@ -2,7 +2,7 @@ import useSWRImmutable from 'swr/immutable';
 import axios, { AxiosRequestConfig } from 'axios';
 
 interface SWRDataFetchResult<T> {
-  data: T | undefined;
+  data: ArrayLike<T> | undefined;
   isLoading: boolean;
   isValidating: boolean;
   error: Error | undefined;
@@ -10,7 +10,10 @@ interface SWRDataFetchResult<T> {
 
 type QueryType = { [key: string]: string | number };
 
-const useSWRDataFetch = <T>(url: string, query: QueryType): SWRDataFetchResult<T> => {
+const useSWRDataFetch = <T extends ArrayLike<T> | undefined>(
+  url: string,
+  query: QueryType
+): SWRDataFetchResult<T> => {
   const options: AxiosRequestConfig = {
     method: 'GET',
     headers: {
@@ -25,7 +28,7 @@ const useSWRDataFetch = <T>(url: string, query: QueryType): SWRDataFetchResult<T
   const fetcher = async (url: string) =>
     await axios
       .get(url, options)
-      .then((res) => res.data)
+      .then((res) => res.data.data)
       .catch((error) => {
         console.log(error.toJSON());
         throw new Error(`Error fetching data: ${error.message}`);
@@ -35,6 +38,7 @@ const useSWRDataFetch = <T>(url: string, query: QueryType): SWRDataFetchResult<T
     shouldRetryOnError: false,
   });
 
+  console.log(`🚀 ~ file: useSWRDataFetch.ts:37 ~ useSWRDataFetch ~ data:`, data);
   console.log(`🚀 ~ file: useSWRDataFetch.ts:37 ~ useSWRDataFetch ~ error:`, error);
   console.log(`🚀 ~ file: useSWRDataFetch.ts:32 ~ useSWRDataFetch ~ isValidating:`, isValidating);
   console.log(`🚀 ~ file: useSWRDataFetch.ts:32 ~ useSWRDataFetch ~ isLoading:`, isLoading);

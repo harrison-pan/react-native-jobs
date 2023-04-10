@@ -18,9 +18,9 @@ const PopularJobs: React.FC = (): JSX.Element => {
   // });
 
   const { data, isLoading, isValidating, error } = useSWRDataFetch(
-    'https://jsearch.p.rapidapi.com/searc',
+    'https://jsearch.p.rapidapi.com/search',
     {
-      query: 'UI developer',
+      query: 'React developer',
       num_pages: 1,
     }
   );
@@ -41,8 +41,14 @@ const PopularJobs: React.FC = (): JSX.Element => {
           <>{showErrorToast(error.message)}</>
         ) : (
           <FlatList
-            data={[1, 2, 3, 4, 5]}
-            renderItem={({ item }) => <PopularJobCard item={item} />}
+            data={data}
+            renderItem={({ item }) => (
+              <PopularJobCard
+                item={item}
+                // selectedJob={selectedJob}
+                // handleCardPress={handleCardPress}
+              />
+            )}
             keyExtractor={(item) => item?.job_id}
             contentContainerStyle={{ columnGap: SIZES.medium }}
             horizontal
