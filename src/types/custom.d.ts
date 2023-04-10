@@ -1,14 +1,5 @@
 import { ImageSourcePropType } from 'react-native';
 
-interface Sizes {
-  xSmall: number;
-  small: number;
-  medium: number;
-  large: number;
-  xLarge: number;
-  xxLarge: number;
-}
-
 interface Shadow {
   shadowColor: string;
   shadowOffset: {
@@ -23,24 +14,6 @@ interface Shadow {
 interface Shadows {
   small: Shadow;
   medium: Shadow;
-}
-
-interface Colors {
-  primary: string;
-  secondary: string;
-  tertiary: string;
-  gray: string;
-  gray2: string;
-  gray3: string;
-  white: string;
-  white2: string;
-  lightWhite: string;
-}
-
-interface Font {
-  regular: string;
-  medium: string;
-  bold: string;
 }
 
 interface IconObject {
@@ -72,4 +45,4 @@ interface SWRDataFetchResult<T> {
   error: Error | undefined;
 }
 
-export { Sizes, Shadow, Shadows, Colors, Font, IconObject, Job, SWRDataFetchResult };
+export { Shadow, Shadows, IconObject, Job, SWRDataFetchResult };

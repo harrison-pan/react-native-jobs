@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ImageStyle } from 'react-native';
 
 import styles from './popularjobcard.style';
 import { checkImageURL } from '../../../../utils/utils';
@@ -14,10 +14,12 @@ interface Props {
 function PopularJobCard({ item, selectedJob, handleCardPress }: Props): JSX.Element {
   return (
     <TouchableOpacity
-      style={styles.container(selectedJob, item)}
+      style={[styles.container, selectedJob === item.job_id && styles.selectedJob]}
       onPress={() => handleCardPress(item)}
     >
-      <TouchableOpacity style={styles.logoContainer(selectedJob, item)}>
+      <TouchableOpacity
+        style={[styles.logoContainer, selectedJob === item.job_id && styles.selectedLogoStyle]}
+      >
         <Image
           source={{
             uri: checkImageURL(item?.employer_logo)
@@ -25,7 +27,7 @@ function PopularJobCard({ item, selectedJob, handleCardPress }: Props): JSX.Elem
               : 'https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg',
           }}
           resizeMode="contain"
-          style={styles.logoImage}
+          style={styles.logoImage as ImageStyle}
         />
       </TouchableOpacity>
 
@@ -34,7 +36,10 @@ function PopularJobCard({ item, selectedJob, handleCardPress }: Props): JSX.Elem
       </Text>
 
       <View style={styles.infoContainer}>
-        <Text style={styles.jobName(selectedJob, item)} numberOfLines={1}>
+        <Text
+          style={[styles.jobName, selectedJob === item.job_id && styles.selectedJobNameStyle]}
+          numberOfLines={1}
+        >
           {item.job_title}
         </Text>
         <Text style={styles.location} numberOfLines={1}>

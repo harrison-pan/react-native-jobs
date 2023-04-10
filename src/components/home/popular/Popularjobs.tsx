@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 
 import { COLORS, SIZES } from '../../../constants';
-import useFetch from '../../../hooks/useFetch';
 import { useSWRDataFetch } from '../../../hooks/useSWRDataFetch';
 import { showErrorToast } from '../../../modals/toast';
 import PopularJobCard from '../../common/cards/popular/PopularJobCard';

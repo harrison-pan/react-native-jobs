@@ -1,6 +1,6 @@
-import { Colors, Font, Sizes, Shadows } from '../types/custom';
+import { Shadows } from '../types/custom';
 
-const COLORS: Colors = {
+const COLORS = {
   primary: '#312651',
   secondary: '#444262',
   tertiary: '#FF7754',
@@ -12,13 +12,13 @@ const COLORS: Colors = {
   lightWhite: '#FAFAFC',
 };
 
-const FONT: Font = {
+const FONT = {
   regular: 'DMRegular',
   medium: 'DMMedium',
   bold: 'DMBold',
 };
 
-const SIZES: Sizes = {
+const SIZES = {
   xSmall: 10,
   small: 12,
   medium: 16,
