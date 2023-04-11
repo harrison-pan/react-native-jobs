@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, ImageStyle, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { icons, SIZES } from '../../../constants';
 import styles from './welcome.style';
@@ -35,7 +35,11 @@ const Welcome: React.FC = (): JSX.Element => {
             throw new Error('Function not implemented.');
           }}
         >
-          <Image source={icons.search} resizeMode="contain" style={styles.searchBtnImage} />
+          <Image
+            source={icons.search}
+            resizeMode="contain"
+            style={styles.searchBtnImage as ImageStyle}
+          />
         </TouchableOpacity>
       </View>
 
@@ -44,13 +48,15 @@ const Welcome: React.FC = (): JSX.Element => {
           data={jobTypes}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={styles.tab(activeJobType, item)}
+              style={[styles.tab, activeJobType === item && styles.activeTabStyle]}
               onPress={() => {
                 setActiveJobType(item);
                 router.push(`/search/jobs/${item}`);
               }}
             >
-              <Text style={styles.tabText(activeJobType, item)}>{item}</Text>
+              <Text style={[styles.tabText, activeJobType === item && styles.activeTabTextStyle]}>
+                {item}
+              </Text>
             </TouchableOpacity>
           )}
           keyExtractor={(item) => item}

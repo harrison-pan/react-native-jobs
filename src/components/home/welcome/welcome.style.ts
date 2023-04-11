@@ -2,6 +2,14 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS, FONT, SIZES } from '../../../constants';
 
+const activeTabStyle = {
+  borderColor: COLORS.secondary,
+};
+
+const activeTabTextStyle = {
+  color: COLORS.secondary,
+};
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -56,17 +64,19 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: SIZES.medium,
   },
-  tab: (activeJobType, item) => ({
+  tab: {
     paddingVertical: SIZES.small / 2,
     paddingHorizontal: SIZES.small,
     borderRadius: SIZES.medium,
     borderWidth: 1,
-    borderColor: activeJobType === item ? COLORS.secondary : COLORS.gray2,
-  }),
-  tabText: (activeJobType, item) => ({
+    borderColor: COLORS.gray2,
+  },
+  activeTabStyle,
+  tabText: {
     fontFamily: FONT.medium,
-    color: activeJobType === item ? COLORS.secondary : COLORS.gray2,
-  }),
+    color: COLORS.gray2,
+  },
+  activeTabTextStyle,
 });
 
 export default styles;
