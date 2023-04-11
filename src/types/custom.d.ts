@@ -38,11 +38,4 @@ interface Job {
   job_country?: string;
 }
 
-interface SWRDataFetchResult<T> {
-  data: T | undefined;
-  isLoading: boolean;
-  isValidating: boolean;
-  error: Error | undefined;
-}
-
-export { Shadow, Shadows, IconObject, Job, SWRDataFetchResult };
+export { Shadow, Shadows, IconObject, Job };

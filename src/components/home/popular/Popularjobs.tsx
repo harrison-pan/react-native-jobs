@@ -2,28 +2,25 @@ import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 
+import { AxiosRequestConfig } from 'axios';
+import { jSearchRapidApiConfig } from '../../../apis/rapidApi';
 import { COLORS, SIZES } from '../../../constants';
-import { useSWRDataFetch } from '../../../hooks/useSWRDataFetch';
+import { SWRDataFetchResult, useSWRDataFetch } from '../../../hooks/useSWRDataFetch';
 import { showErrorToast } from '../../../modals/toast';
+import { Job } from '../../../types/custom';
 import PopularJobCard from '../../common/cards/popular/PopularJobCard';
 import styles from './popularjobs.style';
-import { Job } from '../../../types/custom';
 
 const PopularJobs: React.FC = (): JSX.Element => {
   const router = useRouter();
 
-  // const { data, isLoading, error } = useFetch('search', {
-  //   query: 'React developer',
-  //   num_pages: 1,
-  // });
+  const jSearchApiConfig: AxiosRequestConfig = jSearchRapidApiConfig({
+    query: 'React developer',
+    num_pages: 1,
+  });
 
-  const { data, isLoading, isValidating, error } = useSWRDataFetch(
-    'https://jsearch.p.rapidapi.com/search',
-    {
-      query: 'React developer',
-      num_pages: 1,
-    }
-  );
+  const { data, isLoading, isValidating, error }: SWRDataFetchResult<Job[]> =
+    useSWRDataFetch<Job[]>(jSearchApiConfig);
 
   const [selectedJob, setSelectedJob] = useState<string | undefined>();
 
@@ -31,8 +28,6 @@ const PopularJobs: React.FC = (): JSX.Element => {
     router.push(`/job-details/${item.job_id}`);
     setSelectedJob(item?.job_id);
   };
-
-  const jobs = data as Job[];
 
   return (
     <View style={styles.container}>
@@ -50,7 +45,7 @@ const PopularJobs: React.FC = (): JSX.Element => {
           <>{showErrorToast(error.message)}</>
         ) : (
           <FlatList
-            data={jobs}
+            data={data}
             renderItem={({ item }) => (
               <PopularJobCard
                 item={item}

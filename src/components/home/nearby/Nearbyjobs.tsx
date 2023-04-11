@@ -2,25 +2,25 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 
+import { AxiosRequestConfig } from 'axios';
+import { jSearchRapidApiConfig } from '../../../apis/rapidApi';
 import { COLORS } from '../../../constants';
-import { useSWRDataFetch } from '../../../hooks/useSWRDataFetch';
+import { SWRDataFetchResult, useSWRDataFetch } from '../../../hooks/useSWRDataFetch';
 import { showErrorToast } from '../../../modals/toast';
+import { Job } from '../../../types/custom';
 import NearbyJobCard from '../../common/cards/nearby/NearbyJobCard';
 import styles from './nearbyjobs.style';
-import { Job } from '../../../types/custom';
 
 const NearbyJobs: React.FC = (): JSX.Element => {
   const router = useRouter();
 
-  const { data, isLoading, isValidating, error } = useSWRDataFetch(
-    'https://jsearch.p.rapidapi.com/search',
-    {
-      query: 'React developer',
-      num_pages: 1,
-    }
-  );
+  const jSearchApiConfig: AxiosRequestConfig = jSearchRapidApiConfig({
+    query: 'React developer',
+    num_pages: 1,
+  });
 
-  const jobs = data as Job[];
+  const { data, isLoading, isValidating, error }: SWRDataFetchResult<Job[]> =
+    useSWRDataFetch<Job[]>(jSearchApiConfig);
 
   return (
     <View style={styles.container}>
@@ -37,7 +37,7 @@ const NearbyJobs: React.FC = (): JSX.Element => {
         ) : error ? (
           <>{showErrorToast(error.message)}</>
         ) : (
-          jobs?.map((job) => (
+          data?.map((job) => (
             <NearbyJobCard
               job={job}
               key={`nearby-job=${job?.job_id}`}

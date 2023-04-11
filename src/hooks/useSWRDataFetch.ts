@@ -1,41 +1,25 @@
-import useSWRImmutable from 'swr/immutable';
 import axios, { AxiosRequestConfig } from 'axios';
-import { SWRDataFetchResult } from '../types/custom';
+import useSWRImmutable from 'swr/immutable';
 
-type QueryType = { [key: string]: string | number };
+type SWRDataFetchResult<T> = {
+  data?: T;
+  error?: Error;
+  isLoading: boolean;
+  isValidating: boolean;
+};
 
-const useSWRDataFetch = <T extends ArrayLike<T> | undefined>(
-  url: string,
-  query: QueryType
-): SWRDataFetchResult<T> => {
-  const options: AxiosRequestConfig = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '2d33183cdemsh1762c97dd636f8cp1457dejsn7fc028b377a8',
-      'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
-    },
-    params: { ...query },
-  };
-
-  // const fetcher = async (url: string) => axios.get(url, options).then((res) => res.data);
-
-  const fetcher = async (url: string) =>
+const useSWRDataFetch = <T>(options: AxiosRequestConfig): SWRDataFetchResult<T> => {
+  const fetcher = async () =>
     await axios
-      .get(url, options)
+      .request(options)
       .then((res) => res.data.data)
       .catch((error) => {
-        console.log(error.toJSON());
         throw new Error(`Error fetching data: ${error.message}`);
       });
 
-  const { data, error, isLoading, isValidating } = useSWRImmutable<T>(url, fetcher, {
+  const { data, error, isLoading, isValidating } = useSWRImmutable<T>(options.url, fetcher, {
     shouldRetryOnError: false,
   });
-
-  console.log(`🚀 ~ file: useSWRDataFetch.ts:37 ~ useSWRDataFetch ~ data:`, data);
-  console.log(`🚀 ~ file: useSWRDataFetch.ts:37 ~ useSWRDataFetch ~ error:`, error);
-  console.log(`🚀 ~ file: useSWRDataFetch.ts:32 ~ useSWRDataFetch ~ isValidating:`, isValidating);
-  console.log(`🚀 ~ file: useSWRDataFetch.ts:32 ~ useSWRDataFetch ~ isLoading:`, isLoading);
 
   return {
     data,
@@ -45,4 +29,4 @@ const useSWRDataFetch = <T extends ArrayLike<T> | undefined>(
   };
 };
 
-export { useSWRDataFetch };
+export { useSWRDataFetch, SWRDataFetchResult };
