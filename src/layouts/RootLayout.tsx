@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
-const RootLayout: React.FC = () => {
+const RootLayout: React.FC = (): JSX.Element => {
   const [fontsLoaded] = useFonts({
     DMBold: require('../assets/fonts/DMSans-Bold.ttf'),
     DMMedium: require('../assets/fonts/DMSans-Medium.ttf'),
@@ -18,7 +18,7 @@ const RootLayout: React.FC = () => {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) return <></>;
 
   return <Stack />;
 };
