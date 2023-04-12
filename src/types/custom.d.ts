@@ -30,7 +30,7 @@ interface IconObject {
 }
 
 interface Job {
-  employer_name: string;
+  employer_name?: string;
   employer_logo?: string;
   job_employment_type?: string;
   job_id?: string;

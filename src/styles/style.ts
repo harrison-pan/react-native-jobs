@@ -53,6 +53,10 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
     color: COLORS.primary,
   },
+  homeSafeAreaView: { flex: 1, backgroundColor: COLORS.lightWhite },
+  homeScrollView: { flex: 1, padding: SIZES.medium },
+  jobDetailsSafeAreaView: { flex: 1, backgroundColor: COLORS.lightWhite },
+  jobDetailsScrollView: { padding: SIZES.medium, paddingBottom: 100 },
 });
 
 export default styles;

@@ -3,14 +3,13 @@ import { View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { COLORS, icons, images, SIZES } from '../constants';
 import { NearbyJobs, PopularJobs, ScreenHeaderBtn, Welcome } from '../components';
+import styles from '../styles/style';
 
 const Home: React.FC = (): JSX.Element => {
   const router = useRouter();
-  const safeAreaViewStyle = { flex: 1, backgroundColor: COLORS.lightWhite };
-  const scrollViewStyle = { flex: 1, padding: SIZES.medium };
 
   return (
-    <SafeAreaView style={safeAreaViewStyle}>
+    <SafeAreaView style={styles.homeSafeAreaView}>
       <Stack.Screen
         options={{
           headerStyle: { backgroundColor: COLORS.lightWhite },
@@ -38,7 +37,7 @@ const Home: React.FC = (): JSX.Element => {
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={scrollViewStyle}>
+        <View style={styles.homeScrollView}>
           <Welcome></Welcome>
           <PopularJobs></PopularJobs>
           <NearbyJobs></NearbyJobs>
