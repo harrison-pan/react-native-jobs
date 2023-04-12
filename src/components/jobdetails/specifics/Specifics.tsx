@@ -1,12 +1,26 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 
-// import styles from './specifics.style';
+import styles from './specifics.style';
 
-const Specifics: React.FC = (): JSX.Element => {
+interface Props {
+  title: string;
+  points: string[];
+}
+
+const Specifics: React.FC<Props> = ({ title, points }: Props): JSX.Element => {
   return (
-    <View>
-      <Text>Specifics</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{title}:</Text>
+
+      <View style={styles.pointsContainer}>
+        {points.map((item, index) => (
+          <View style={styles.pointWrapper} key={item + index}>
+            <View style={styles.pointDot} />
+            <Text style={styles.pointText}>{item}</Text>
+          </View>
+        ))}
+      </View>
     </View>
   );
 };

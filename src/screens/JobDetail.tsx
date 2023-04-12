@@ -1,5 +1,5 @@
 import { Stack, useRouter, useSearchParams } from 'expo-router';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   RefreshControl,
@@ -11,12 +11,13 @@ import {
 
 import { AxiosRequestConfig } from 'axios';
 import { jSearchRapidApiConfig } from '../apis/rapidApi';
-import { Company, JobAbout, JobFooter, JobTabs, ScreenHeaderBtn, Specifics } from '../components';
-import { COLORS, SIZES, icons } from '../constants';
+import { Company, JobFooter, JobTabs, ScreenHeaderBtn } from '../components';
+import TabContent from '../components/jobdetails/tab-contents/TabContent';
+import { COLORS, icons } from '../constants';
 import { SWRDataFetchResult, useSWRDataFetch } from '../hooks/useSWRDataFetch';
 import { showErrorToast } from '../modals/toast';
-import { Job } from '../types/custom';
 import styles from '../styles/style';
+import { Job } from '../types/custom';
 
 let jobDetailApiConfig: AxiosRequestConfig;
 
@@ -40,32 +41,6 @@ const JobDetail: React.FC = (): JSX.Element => {
 
   const onRefresh = () => {
     throw new Error('Function not implemented.');
-  };
-
-  const displayTabContent = (): JSX.Element | null => {
-    switch (activeTab) {
-      case tabs[0]:
-        return <JobAbout info={data[0].job_description ?? 'No data provided'} />;
-
-      case tabs[1]:
-        return (
-          <Specifics
-            title="Qualifications"
-            points={data[0].job_highlights?.Qualifications ?? ['N/A']}
-          />
-        );
-
-      case tabs[2]:
-        return (
-          <Specifics
-            title="Responsibilities"
-            points={data[0].job_highlights?.Responsibilities ?? ['N/A']}
-          />
-        );
-
-      default:
-        return null;
-    }
   };
 
   return (
@@ -117,10 +92,17 @@ const JobDetail: React.FC = (): JSX.Element => {
 
               <JobTabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-              {displayTabContent()}
+              <TabContent activeTab={activeTab} job={data[0]} />
             </View>
           )}
         </ScrollView>
+        <JobFooter
+          job_apply_link={
+            data && data[0]?.job_apply_link
+              ? data[0].job_apply_link
+              : 'https://www.linkedin.com/jobs/'
+          }
+        />
       </>
     </SafeAreaView>
   );

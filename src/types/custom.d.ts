@@ -36,6 +36,12 @@ interface Job {
   job_id?: string;
   job_title?: string;
   job_country?: string;
+  job_description?: string;
+  job_apply_link?: string;
+  job_highlights?: {
+    Responsibilities?: string[];
+    Qualifications?: string[];
+  };
 }
 
 export { Shadow, Shadows, IconObject, Job };
