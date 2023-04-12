@@ -11,13 +11,13 @@ import { Job } from '../../../types/custom';
 import NearbyJobCard from '../../common/cards/nearby/NearbyJobCard';
 import styles from './nearbyjobs.style';
 
+const jSearchApiConfig: AxiosRequestConfig = jSearchRapidApiConfig('search', {
+  query: 'Software Engineer in Wellington, New Zealand',
+  num_pages: 1,
+});
+
 const NearbyJobs: React.FC = (): JSX.Element => {
   const router = useRouter();
-
-  const jSearchApiConfig: AxiosRequestConfig = jSearchRapidApiConfig({
-    query: 'React developer',
-    num_pages: 1,
-  });
 
   const { data, isLoading, isValidating, error }: SWRDataFetchResult<Job[]> =
     useSWRDataFetch<Job[]>(jSearchApiConfig);

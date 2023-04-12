@@ -2,6 +2,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,7 +21,12 @@ const RootLayout: React.FC = (): JSX.Element => {
 
   if (!fontsLoaded) return <></>;
 
-  return <Stack />;
+  return (
+    <>
+      <Stack />
+      <Toast />
+    </>
+  );
 };
 
 export default RootLayout;

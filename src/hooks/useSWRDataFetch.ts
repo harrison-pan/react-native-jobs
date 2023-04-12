@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import useSWRImmutable from 'swr/immutable';
+import useSWR from 'swr';
 
 type SWRDataFetchResult<T> = {
   data?: T;
@@ -8,16 +8,19 @@ type SWRDataFetchResult<T> = {
   isValidating: boolean;
 };
 
-const useSWRDataFetch = <T>(options: AxiosRequestConfig): SWRDataFetchResult<T> => {
-  const fetcher = async () =>
-    await axios
-      .request(options)
-      .then((res) => res.data.data)
-      .catch((error) => {
-        throw new Error(`Error fetching data: ${error.message}`);
-      });
+const fetcher = async (options: AxiosRequestConfig) =>
+  await axios
+    .request(options)
+    .then((res) => res.data.data)
+    .catch((error) => {
+      throw new Error(`Error fetching data: ${error.message}`);
+    });
 
-  const { data, error, isLoading, isValidating } = useSWRImmutable<T>(options.url, fetcher, {
+const useSWRDataFetch = <T>(options: AxiosRequestConfig | null): SWRDataFetchResult<T> => {
+  const { data, error, isLoading, isValidating } = useSWR<T>(options, fetcher, {
+    revalidateIfStale: true,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
     shouldRetryOnError: false,
   });
 

@@ -11,13 +11,10 @@ import { Job } from '../../../types/custom';
 import PopularJobCard from '../../common/cards/popular/PopularJobCard';
 import styles from './popularjobs.style';
 
+const jSearchApiConfig: AxiosRequestConfig = jSearchRapidApiConfig();
+
 const PopularJobs: React.FC = (): JSX.Element => {
   const router = useRouter();
-
-  const jSearchApiConfig: AxiosRequestConfig = jSearchRapidApiConfig({
-    query: 'React developer',
-    num_pages: 1,
-  });
 
   const { data, isLoading, isValidating, error }: SWRDataFetchResult<Job[]> =
     useSWRDataFetch<Job[]>(jSearchApiConfig);
