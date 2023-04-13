@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
+import env from 'src/env/env';
 
 type ParamType = { [key: string]: string | number | string[] };
 
@@ -20,12 +21,13 @@ const jSearchRapidApiConfig = (endpoint?: string, param?: ParamType): AxiosReque
     endpoint = defaultJSearchApiConfig.endpoint;
     param = defaultJSearchApiConfig.param;
   }
+
   return {
-    url: `https://jsearch.p.rapidapi.com/${endpoint}`,
+    url: `${env.JSEARCH_API_URL}/${endpoint}`,
     method: 'GET',
     headers: {
-      'X-RapidAPI-Key': '4b449d9d49msh8cfef18dde05d7bp1e7659jsn70bc94bb6c20',
-      'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
+      'X-RapidAPI-Key': env.RAPID_API_KEY,
+      'X-RapidAPI-Host': env.RAPID_API_HOST,
     },
     params: { ...param },
   };
