@@ -1,5 +1,10 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import useSWR from 'swr';
+import {
+  mockJobDetailResponse,
+  mockJobsResponse,
+} from '../apis/mock-api-responses/mockApiResponse';
 
 type SWRDataFetchResult<T> = {
   data?: T;
@@ -7,6 +12,11 @@ type SWRDataFetchResult<T> = {
   isLoading: boolean;
   isValidating: boolean;
 };
+
+// TODO: comment out this mock axios implementation
+const mock = new MockAdapter(axios, { delayResponse: 800 });
+mock.onGet('https://jsearch.p.rapidapi.com/search').reply(200, mockJobsResponse);
+mock.onGet('https://jsearch.p.rapidapi.com/job-details').reply(200, mockJobDetailResponse);
 
 const fetcher = async (options: AxiosRequestConfig) =>
   await axios
