@@ -14,7 +14,7 @@ const Footer: React.FC<Job> = ({ job_apply_link }: Job): JSX.Element => {
 
       <TouchableOpacity
         style={styles.applyBtn}
-        onPress={() => Linking.openURL(job_apply_link as string)}
+        onPress={() => job_apply_link && Linking.openURL(job_apply_link)}
       >
         <Text style={styles.applyBtnText}>Apply for job</Text>
       </TouchableOpacity>
