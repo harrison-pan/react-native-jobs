@@ -19,20 +19,21 @@ import { showErrorToast } from '../modals/toast';
 import styles from '../styles/style';
 import { Job } from '../types/custom';
 
-let jobDetailApiConfig: AxiosRequestConfig;
-
 const tabs: string[] = ['About', 'Qualifications', 'Responsibilities'];
 
 const JobDetail: React.FC = (): JSX.Element => {
   const params = useSearchParams();
   const router = useRouter();
+  const [jobDetailApiConfig, setJobDetailApiConfig] = useState<AxiosRequestConfig | null>(null);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
 
   useMemo(() => {
-    jobDetailApiConfig = jSearchRapidApiConfig('job-details', {
-      job_id: params.id as string,
-    });
+    setJobDetailApiConfig(
+      jSearchRapidApiConfig('job-details', {
+        job_id: params.id as string,
+      })
+    );
   }, [params.id]);
 
   const { data, isLoading, isValidating, error }: SWRDataFetchResult<Job[]> = useSWRDataFetch<
@@ -40,7 +41,13 @@ const JobDetail: React.FC = (): JSX.Element => {
   >(params.id ? jobDetailApiConfig : null);
 
   const onRefresh = () => {
-    throw new Error('Function not implemented.');
+    setRefreshing(true);
+    setJobDetailApiConfig(
+      jSearchRapidApiConfig('job-details', {
+        job_id: params.id as string,
+      })
+    );
+    setRefreshing(false);
   };
 
   return (
