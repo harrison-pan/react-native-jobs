@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { COLORS, icons, images, SIZES } from '../constants';
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, View } from 'react-native';
 import { NearbyJobs, PopularJobs, ScreenHeaderBtn, Welcome } from '../components';
+import { COLORS, icons, images } from '../constants';
 import styles from '../styles/style';
 
 const Home: React.FC = (): JSX.Element => {
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
 
   return (
     <SafeAreaView style={styles.homeSafeAreaView}>
@@ -19,7 +20,7 @@ const Home: React.FC = (): JSX.Element => {
               iconUrl={icons.menu}
               dimension="60%"
               handlePress={() => {
-                throw new Error('Function not implemented.');
+                // TODO: add menu button functionality
               }}
             />
           ),
@@ -28,7 +29,7 @@ const Home: React.FC = (): JSX.Element => {
               iconUrl={images.profileImage}
               dimension="100%"
               handlePress={() => {
-                throw new Error('Function not implemented.');
+                // TODO: add profile image button functionality
               }}
             />
           ),
@@ -38,7 +39,11 @@ const Home: React.FC = (): JSX.Element => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.homeScrollView}>
-          <Welcome></Welcome>
+          <Welcome
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            handleClick={() => searchTerm && router.push(`/search/${searchTerm}`)}
+          ></Welcome>
           <PopularJobs></PopularJobs>
           <NearbyJobs></NearbyJobs>
         </View>

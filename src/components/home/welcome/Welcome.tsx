@@ -1,13 +1,22 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { FlatList, Image, ImageStyle, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
-import { icons, SIZES } from '../../../constants';
+import { SIZES, icons } from '../../../constants';
 import styles from './welcome.style';
+
+interface Props {
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  handleClick: () => void;
+}
 
 const jobTypes = ['Full-time', 'Part-time', 'Contractor'];
 
-const Welcome: React.FC = (): JSX.Element => {
+const Welcome: React.FC<Props> = ({
+  searchTerm,
+  setSearchTerm,
+  handleClick,
+}: Props): JSX.Element => {
   const router = useRouter();
   const [activeJobType, setActiveJobType] = useState('Full-time');
 
@@ -21,20 +30,13 @@ const Welcome: React.FC = (): JSX.Element => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value=""
-            onChange={() => {
-              throw new Error('Function not implemented.');
-            }}
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
             placeholder="What are you looking for?"
           />
         </View>
 
-        <TouchableOpacity
-          style={styles.searchBtn}
-          onPress={() => {
-            throw new Error('Function not implemented.');
-          }}
-        >
+        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
           <Image
             source={icons.search}
             resizeMode="contain"
@@ -51,7 +53,7 @@ const Welcome: React.FC = (): JSX.Element => {
               style={[styles.tab, activeJobType === item && styles.activeTabStyle]}
               onPress={() => {
                 setActiveJobType(item);
-                router.push(`/search/jobs/${item}`);
+                router.push(`/search/${searchTerm} ${item}`);
               }}
             >
               <Text style={[styles.tabText, activeJobType === item && styles.activeTabTextStyle]}>

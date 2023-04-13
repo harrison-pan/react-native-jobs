@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontFamily: FONT.medium,
     fontSize: SIZES.small,
-    color: COLORS.primary,
+    color: COLORS.secondary,
   },
   loaderContainer: {
     marginTop: SIZES.medium,
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   homeScrollView: { flex: 1, padding: SIZES.medium },
   jobDetailsSafeAreaView: { flex: 1, backgroundColor: COLORS.lightWhite },
   jobDetailsScrollView: { padding: SIZES.medium, paddingBottom: 100 },
+  jobSearchSafeAreaView: { flex: 1, backgroundColor: COLORS.lightWhite },
 });
 
 export default styles;

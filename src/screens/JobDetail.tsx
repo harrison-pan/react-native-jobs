@@ -69,7 +69,7 @@ const JobDetail: React.FC = (): JSX.Element => {
               iconUrl={icons.share}
               dimension="60%"
               handlePress={() => {
-                throw new Error('Function not implemented.');
+                // TODO: add job share function
               }}
             />
           ),
