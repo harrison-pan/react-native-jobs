@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   noOfSearchedJobs: {
-    marginTop: 2,
+    marginTop: 6,
+    marginLeft: 6,
     fontFamily: FONT.medium,
     fontSize: SIZES.small,
     color: COLORS.secondary,
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
   jobDetailsSafeAreaView: { flex: 1, backgroundColor: COLORS.lightWhite },
   jobDetailsScrollView: { padding: SIZES.medium, paddingBottom: 100 },
   jobSearchSafeAreaView: { flex: 1, backgroundColor: COLORS.lightWhite },
+  jobSearchPreLoadNextPageView: { display: 'none' },
 });
 
 export default styles;

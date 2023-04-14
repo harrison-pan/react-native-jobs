@@ -19,40 +19,89 @@ import { showErrorToast } from '../modals/toast';
 import styles from '../styles/style';
 import { Job } from '../types/custom';
 
-const JobSearch: React.FC = (): JSX.Element => {
+interface SearchResultProps {
+  pageIndex: number;
+  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const SearchResult: React.FC<SearchResultProps> = ({
+  pageIndex,
+  setPageIndex,
+}: SearchResultProps): JSX.Element => {
   const params = useSearchParams();
   const router = useRouter();
-  const [page, setPage] = useState<number>(1);
   const [jobSearchApiConfig, setJobSearchApiConfig] = useState<AxiosRequestConfig | null>(null);
-
-  const initJSapiConfig: AxiosRequestConfig = jSearchRapidApiConfig('search', {
-    query: params.query as string,
-    page: page.toString(),
-  });
 
   useMemo(() => {
     setJobSearchApiConfig(
       jSearchRapidApiConfig('search', {
         query: params.query as string,
-        page: page.toString(),
+        page: pageIndex.toString(),
       })
     );
-  }, [params.query, page]);
+  }, [params.query, pageIndex]);
 
   const { data, isLoading, isValidating, error }: SWRDataFetchResult<Job[]> = useSWRDataFetch<
     Job[]
   >(params.query ? jobSearchApiConfig : null);
 
-  const handlePagination = (direction: string) => {
-    if (direction === 'left' && page > 1) {
-      setPage(page - 1);
-      setJobSearchApiConfig(initJSapiConfig);
-    } else if (direction === 'right') {
-      setPage(page + 1);
-      setJobSearchApiConfig(initJSapiConfig);
-    }
-  };
+  return (
+    <FlatList
+      data={data}
+      renderItem={({ item }) => (
+        <NearbyJobCard
+          job={item}
+          handleNavigate={() => router.push(`/job-details/${item.job_id}`)}
+        />
+      )}
+      keyExtractor={(item: Job) => (item.job_id ? item.job_id.toString() : '')}
+      contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
+      ListHeaderComponent={() => (
+        <>
+          <View style={styles.container}>
+            <Text style={styles.searchTitle}>{params.query}</Text>
+            <Text style={styles.noOfSearchedJobs}>Job Opportunities</Text>
+          </View>
+          <View style={styles.loaderContainer}>
+            {isLoading ? (
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            ) : (
+              error && <>{showErrorToast(error.message)}</>
+            )}
+          </View>
+        </>
+      )}
+      ListFooterComponent={() => (
+        <View style={styles.footerContainer}>
+          <TouchableOpacity
+            style={styles.paginationButton}
+            disabled={pageIndex === 1}
+            onPress={() => setPageIndex(pageIndex - 1)}
+          >
+            <Image source={icons.chevronLeft} style={styles.paginationImage} resizeMode="contain" />
+          </TouchableOpacity>
+          <View style={styles.paginationTextBox}>
+            <Text style={styles.paginationText}>{pageIndex}</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.paginationButton}
+            onPress={() => setPageIndex(pageIndex + 1)}
+          >
+            <Image
+              source={icons.chevronRight}
+              style={styles.paginationImage}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
+      )}
+    />
+  );
+};
 
+const JobSearch: React.FC = (): JSX.Element => {
+  const router = useRouter();
+  const [page, setPage] = useState<number>(1);
   return (
     <SafeAreaView style={styles.jobSearchSafeAreaView}>
       <Stack.Screen
@@ -69,60 +118,10 @@ const JobSearch: React.FC = (): JSX.Element => {
           headerTitle: '',
         }}
       />
-
-      <FlatList
-        data={data}
-        renderItem={({ item }) => (
-          <NearbyJobCard
-            job={item}
-            handleNavigate={() => router.push(`/job-details/${item.job_id}`)}
-          />
-        )}
-        keyExtractor={(item: Job) => (item?.job_id ? item.job_id.toString() : '')}
-        contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
-        ListHeaderComponent={() => (
-          <>
-            <View style={styles.container}>
-              <Text style={styles.searchTitle}>{params.query}</Text>
-              <Text style={styles.noOfSearchedJobs}>Job Opportunities</Text>
-            </View>
-            <View style={styles.loaderContainer}>
-              {isLoading || isValidating ? (
-                <ActivityIndicator size="large" color={COLORS.primary} />
-              ) : (
-                error && <>{showErrorToast(error.message)}</>
-              )}
-            </View>
-          </>
-        )}
-        ListFooterComponent={() => (
-          <View style={styles.footerContainer}>
-            <TouchableOpacity
-              style={styles.paginationButton}
-              onPress={() => handlePagination('left')}
-            >
-              <Image
-                source={icons.chevronLeft}
-                style={styles.paginationImage}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-            <View style={styles.paginationTextBox}>
-              <Text style={styles.paginationText}>{page}</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.paginationButton}
-              onPress={() => handlePagination('right')}
-            >
-              <Image
-                source={icons.chevronRight}
-                style={styles.paginationImage}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          </View>
-        )}
-      />
+      <SearchResult pageIndex={page} setPageIndex={setPage} />
+      <View style={styles.jobSearchPreLoadNextPageView}>
+        <SearchResult pageIndex={page + 1} setPageIndex={setPage} />
+      </View>
     </SafeAreaView>
   );
 };
