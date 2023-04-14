@@ -50,7 +50,7 @@ const PopularJobs: React.FC = (): JSX.Element => {
                 handleCardPress={handleCardPress}
               />
             )}
-            keyExtractor={(item: Job) => (item?.job_id ? item.job_id.toString() : '')}
+            keyExtractor={(item: Job) => (item.job_id ? item.job_id.toString() : '')}
             contentContainerStyle={{ columnGap: SIZES.medium }}
             horizontal
           />

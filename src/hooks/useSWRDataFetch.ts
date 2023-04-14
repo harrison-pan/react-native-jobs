@@ -14,9 +14,9 @@ type SWRDataFetchResult<T> = {
 };
 
 // TODO: comment out this mock axios implementation
-// const mock = new MockAdapter(axios, { delayResponse: 800 });
-// mock.onGet('https://jsearch.p.rapidapi.com/search').reply(200, mockJobsResponse);
-// mock.onGet('https://jsearch.p.rapidapi.com/job-details').reply(200, mockJobDetailResponse);
+const mock = new MockAdapter(axios, { delayResponse: 800 });
+mock.onGet('https://jsearch.p.rapidapi.com/search').reply(200, mockJobsResponse);
+mock.onGet('https://jsearch.p.rapidapi.com/job-details').reply(200, mockJobDetailResponse);
 
 const fetcher = async (options: AxiosRequestConfig) =>
   await axios
