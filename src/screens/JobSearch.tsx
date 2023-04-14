@@ -41,9 +41,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
     );
   }, [params.query, pageIndex]);
 
-  const { data, isLoading, isValidating, error }: SWRDataFetchResult<Job[]> = useSWRDataFetch<
-    Job[]
-  >(params.query ? jobSearchApiConfig : null);
+  const { data, isLoading, error }: SWRDataFetchResult<Job[]> = useSWRDataFetch<Job[]>(
+    params.query ? jobSearchApiConfig : null
+  );
 
   return (
     <FlatList
